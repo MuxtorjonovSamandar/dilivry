@@ -1,9 +1,15 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'dart:developer';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:xizmatdamiz/frontend/screens/verification/log_in.dart';
 import 'package:xizmatdamiz/frontend/screens/verification/sign_up.dart';
 import 'package:xizmatdamiz/frontend/style/color.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class VerifyPage extends StatefulWidget {
   final String email;
@@ -36,49 +42,36 @@ class _VerifyPageState extends State<VerifyPage> {
       _isLoading = true;
     });
 
+    // Attempt to send a password reset email to the provided email address
     try {
-      String enteredCode = _codeController.text.trim();
-
-      // Check if the email exists in the Firebase database
-      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+      var res = await FirebaseFirestore.instance
           .collection('users')
           .where('email', isEqualTo: widget.email)
           .get();
 
-      if (querySnapshot.docs.isNotEmpty) {
-        // Email exists, navigate to the login page
+      if (res.docs.length == 0) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => SignupPage(email: widget.email),
+          ),
+        );
+      } else {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
             builder: (context) => LoginPage(email: widget.email),
           ),
         );
-      } else {
-        // Email doesn't exist, navigate to the sign-up page
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => SignupPage(email: widget.email),
-          ),
-        );
       }
+
+      //Else
     } catch (e) {
-      // Handle specific exception when no documents are returned
-      if (e is FirebaseException && e.code == 'permission-denied') {
-        // Email doesn't exist, navigate to the sign-up page
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => SignupPage(email: widget.email),
-          ),
-        );
-      } else {
-        // Other errors
-        setState(() {
-          _errorText = 'Error verifying email. Please try again.';
-          _isLoading = false;
-        });
-      }
+      // Handle other errors
+      setState(() {
+        _errorText = 'Error verifying email. Please try again.';
+        _isLoading = false;
+      });
     }
   }
 
