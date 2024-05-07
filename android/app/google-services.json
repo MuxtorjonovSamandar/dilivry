@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "985753091172",
+    "project_id": "xizmatdamiz-f8805",
+    "storage_bucket": "xizmatdamiz-f8805.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:985753091172:android:85d1eff39e0254d737b371",
+        "android_client_info": {
+          "package_name": "com.example.xizmatdamiz"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFW8yEC8MoV1-xu6NZ8ema68LXv0UCB1I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
