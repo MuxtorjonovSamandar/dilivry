@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:xizmatdamiz/frontend/screens/home/home.dart';
@@ -6,7 +7,7 @@ import 'package:xizmatdamiz/frontend/style/color.dart';
 class LoginPage extends StatefulWidget {
   final String email;
 
-  const LoginPage({super.key, required this.email});
+  const LoginPage({Key? key, required this.email}) : super(key: key);
 
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -22,9 +23,10 @@ class _LoginPageState extends State<LoginPage> {
     });
 
     try {
- 
-
-
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: widget.email,
+        password: _passwordController.text,
+      );
 
       Navigator.pushReplacement(
         context,
@@ -66,39 +68,33 @@ class _LoginPageState extends State<LoginPage> {
             children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
+                children:  [
+                  Text(
                     'Enter Password',
-                    style:
-                        TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
                   ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  const Text(
+                  SizedBox(height: 10),
+                  Text(
                     'Please enter the password you created during sign up',
                     style: TextStyle(fontSize: 12.0, color: Colors.grey),
                   ),
-                  const SizedBox(
-                    height: 40,
-                  ),
+                  SizedBox(height: 40),
                   TextField(
                     controller: _passwordController,
                     obscureText: true,
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: 'Password',
                     ),
                   ),
                 ],
               ),
-              const SizedBox(height: 20.0),
+              SizedBox(height: 20.0),
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton.icon(
                   style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStatePropertyAll(RGBcolor().mainColor),
+                    backgroundColor: MaterialStateProperty.all(RGBcolor().mainColor),
                   ),
                   onPressed: _isLoading ? null : _login,
                   icon: _isLoading
@@ -106,8 +102,7 @@ class _LoginPageState extends State<LoginPage> {
                           width: 20.0,
                           height: 20.0,
                           child: CircularProgressIndicator(
-                            valueColor:
-                                AlwaysStoppedAnimation<Color>(Colors.white),
+                            valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                             strokeWidth: 3.0,
                           ),
                         )
@@ -116,7 +111,7 @@ class _LoginPageState extends State<LoginPage> {
                           color: Colors.white,
                         ),
                   label: Text(
-                    _isLoading ? 'Logging in...' : "Login",
+                    _isLoading ? 'Logging in...' : 'Login',
                     style: const TextStyle(color: Colors.white),
                   ),
                 ),
