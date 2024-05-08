@@ -1,6 +1,5 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
@@ -9,17 +8,16 @@ import 'package:flutter/material.dart';
 import 'package:xizmatdamiz/frontend/screens/verification/log_in.dart';
 import 'package:xizmatdamiz/frontend/screens/verification/sign_up.dart';
 import 'package:xizmatdamiz/frontend/style/color.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class VerifyPage extends StatefulWidget {
   final String email;
   final String verificationCode;
 
-  VerifyPage({
-    Key? key,
+  const VerifyPage({
+    super.key,
     required this.email,
     required this.verificationCode,
-  }) : super(key: key);
+  });
 
   @override
   _VerifyPageState createState() => _VerifyPageState();
@@ -49,7 +47,7 @@ class _VerifyPageState extends State<VerifyPage> {
           .where('email', isEqualTo: widget.email)
           .get();
 
-      if (res.docs.length == 0) {
+      if (res.docs.isEmpty) {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(

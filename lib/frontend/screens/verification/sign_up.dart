@@ -7,7 +7,7 @@ import 'package:xizmatdamiz/frontend/style/color.dart';
 class SignupPage extends StatefulWidget {
   final String email;
 
-  const SignupPage({Key? key, required this.email}) : super(key: key);
+  const SignupPage({super.key, required this.email});
 
   @override
   _SignupPageState createState() => _SignupPageState();
@@ -63,18 +63,18 @@ class _SignupPageState extends State<SignupPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                const Text(
                   'Sign Up',
                   style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
-                Text(
+                const Text(
                   'Verification successful. Create your sign up password',
                   style: TextStyle(fontSize: 12.0, color: Colors.grey),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Column(
@@ -131,7 +131,7 @@ class _SignupPageState extends State<SignupPage> {
                       ),
                       child: Text(
                         _isLoading ? 'Signing Up...' : 'Sign Up',
-                        style: TextStyle(color: Colors.white),
+                        style: const TextStyle(color: Colors.white),
                       ),
                     ),
                   ),

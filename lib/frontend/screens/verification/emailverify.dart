@@ -7,7 +7,7 @@ import 'package:xizmatdamiz/frontend/screens/verification/verify.dart';
 import 'package:xizmatdamiz/frontend/style/color.dart';
 
 class EmailVerifyPage extends StatefulWidget {
-  const EmailVerifyPage({Key? key});
+  const EmailVerifyPage({super.key});
 
   @override
   _EmailVerifyPageState createState() => _EmailVerifyPageState();
